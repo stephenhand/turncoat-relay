@@ -7,6 +7,7 @@
                  [org.clojure/clojure "1.7.0"]
                  [org.clojure/java.jdbc "0.4.2"]
                  [org.clojure/core.async "0.1.346.0-17112a-alpha"]
+                 [clj-time "0.11.0"]
                  [com.microsoft.jdbc/sqljdbc "4.0"]
                  [ring/ring-defaults "0.1.5"]
                  [http-kit "2.1.19"]

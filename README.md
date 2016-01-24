@@ -1,10 +1,14 @@
-# scratch-clojure
+# turncoat-relay
 
-A Clojure library designed to ... well, that part is up to you.
+A very simple message relay that transfers messages between clients via web sockets.
+
+Can be used by turncoat peer-to-peer turn based gaming clients to exchange data.
 
 ## Usage
 
-FIXME
+Just run the executable jar. Currently hardcoded to run on port 8088
+
+
 
 ## License
 
