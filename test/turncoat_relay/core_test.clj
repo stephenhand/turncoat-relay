@@ -1,6 +1,6 @@
-(ns scratch-clojure.core-test
+(ns turncoat-relay.core-test
   (:require [clojure.test :refer :all]
-            [scratch-clojure.core :refer :all]))
+            [turncoat-relay.core :refer :all]))
 
 (deftest a-test
   (testing "FIXME, I fail."

@@ -1,13 +1,20 @@
 (ns com.handysolutions.turncoat.relay.db
-  (require [clojure.string :as string]
-            [clojure.java.jdbc :as jdbc]))
+  (require [clojure.java.jdbc :as jdbc]))
+(def connection-data {:classname "com.microsoft.jdbc.sqlserver.SQLServerDriver"
+                      :subprotocol "sqlserver"
+                      :subname "//DIDDYKONG\\SQLEXPRESS;Initial Catalog=turncoat"
+                      :user "sa"
+                      :password "test_1234"})
+(defn load-game-state [user, game]
+  (jdbc/with-db-connection [db-con connection-data]
+    (jdbc/query db-con ["SELECT TOP 1 State FROM turncoat.dbo.GameState WHERE [Username] = ? AND Game = ? ORDER BY Generation DESC" user, game] )
+    )
+  )
 
-(defn output-table-content [table-name]
-      (jdbc/with-db-connection [db-con {:classname "com.microsoft.jdbc.sqlserver.SQLServerDriver"
-                                        :subprotocol "sqlserver"
-                                        :subname "//DIDDYKONG\\SQLEXPRESS;Initial Catalog=AdventureWorks2014"
-                                        :user "sa"
-                                        :password "test_1234"}]
-                               (jdbc/query db-con [(string/join ["SELECT * FROM " table-name]) ] )
-      )
+(defn save-game-state [user, game, generation, state-stream]
+  (.reset state-stream)
+  (jdbc/with-db-connection [db-con connection-data]
+    (jdbc/insert! db-con "turncoat.dbo.GameState" {:username user, :game game, :generation generation, :state (slurp state-stream)})
+    "OK"
+    )
   )

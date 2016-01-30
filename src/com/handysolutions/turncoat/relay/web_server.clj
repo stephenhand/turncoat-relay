@@ -7,6 +7,11 @@
 
   )
 (def site
-  (wrap-defaults routes/all site-defaults))
+  (wrap-defaults routes/all
+    (assoc site-defaults :security
+      (assoc (:security site-defaults) :anti-forgery false)
+      )
+    )
+  )
 (defn start [] (httpkit-server/run-server site {:port 8088})
  )
